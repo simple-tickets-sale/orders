@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Release.Name}}
+spec:
+  selector:
+    matchLabels:
+      app: orders
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: orders
+    spec:
+      containers:
+        - name: orders
+          image: {{.Values.orders.image}}
+          resources:
+            requests:
+              memory: 300Mi
+              cpu: 50m
+          readinessProbe:
+            httpGet:
+              path: {{.Values.orders.readinessProbe}}
+              port: 4001
+          env:
+          {{- include "mongoURI" . | indent 12 -}}
+            - name: RABBITMQ_CONNECTION
+              value: {{.Values.orders.env.RABBITMQ_CONNECTION}}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{.Release.Name}}-svc
+spec:
+  selector:
+    app: orders
+  ports:
+    - port: 4001
+      targetPort: 4001

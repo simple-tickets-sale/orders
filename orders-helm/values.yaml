@@ -1,0 +1,6 @@
+orders:
+  env:
+    MONGO_URI: -mongodb.default.svc.cluster.local/testingprojticket
+    RABBITMQ_CONNECTION: amqp://user:user@rabbitmq.default.svc.cluster.local
+  image: $REPOSITORY_TAG
+  readinessProbe: /api/orders/ping

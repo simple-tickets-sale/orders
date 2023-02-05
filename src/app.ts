@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
+import "express-async-errors";
 import { addOrderRouter } from "./routes/add";
 import { rabbitmqConnection } from "./rabbitmq/Connection";
 import { rabbitmqMessages } from "./rabbitmq/consuming";

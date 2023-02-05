@@ -9,6 +9,20 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+const rabbitCon = async () => {
+  if (!process.env.RABBITMQ_CONNECTION) {
+    throw new Error("rabbitmq URI wasn't found");
+  }
+
+  try {
+    await rabbitmqConnection.connect(process.env.RABBITMQ_CONNECTION);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+rabbitCon();
+
 app.use(addOrderRouter);
 
 app.get("/api/orders/ping", (req, res) => {
@@ -24,13 +38,8 @@ const start = async () => {
     throw new Error("mongoURI wasn't found");
   }
 
-  if (!process.env.RABBITMQ_CONNECTION) {
-    throw new Error("rabbitmq URI wasn't found");
-  }
-
   try {
     await mongoose.connect(process.env.MONGO_URI);
-    await rabbitmqConnection.connect(process.env.RABBITMQ_CONNECTION);
   } catch (error) {
     console.error(error);
   }

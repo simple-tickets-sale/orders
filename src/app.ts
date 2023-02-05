@@ -5,6 +5,7 @@ import "express-async-errors";
 import { addOrderRouter } from "./routes/add";
 import { rabbitmqConnection } from "./rabbitmq/Connection";
 import { rabbitmqMessages } from "./rabbitmq/consuming";
+import { getOrdersRouter } from "./routes/show";
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use(addOrderRouter);
+app.use(getOrdersRouter);
 
 app.get("/api/orders/ping", (req, res) => {
   res.send("works!!!");

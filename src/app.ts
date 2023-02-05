@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import { addOrderRouter } from "./routes/add";
-import { rabbitmqConnection } from "../rabbitmq/Connection";
+import { rabbitmqConnection } from "./rabbitmq/Connection";
 
 const app = express();
 

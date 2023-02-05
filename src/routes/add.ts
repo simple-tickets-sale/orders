@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { Order } from "../models/order";
-import { rabbitmqConsumer } from "../../rabbitmq/Consumer";
+import { rabbitmqConsumer } from "../rabbitmq/Consumer";
 
 const router = express.Router();
 

@@ -3,7 +3,7 @@ orders:
     mongo:
       MONGO_URI: -mongodb.default.svc.cluster.local/testingprojticket
       USERNAME: root
-      PASSWORD: ""
+      PASSWORD: aaaa
     RABBITMQ_CONNECTION: amqp://user:user@rabbitmq.default.svc.cluster.local
   image: $REPOSITORY_TAG
   readinessProbe: /api/orders/ping
